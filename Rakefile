@@ -17,11 +17,13 @@ Jeweler::Tasks.new do |gem|
   gem.name = "mailarchiva"
   gem.homepage = "http://github.com/billguy/mailarchiva"
   gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.summary = %Q{A gem to access the Mailarchiva API}
+  gem.description = %Q{A gem to access the Mailarchiva API}
   gem.email = "dj@dbjohn.com"
   gem.authors = ["David John"]
   # dependencies defined in Gemfile
+  gem.add_dependency 'savon', '~> 2.10.0'
+  gem.add_dependency 'mail', '~> 2.6.0'
 end
 Jeweler::RubygemsDotOrgTasks.new
 
