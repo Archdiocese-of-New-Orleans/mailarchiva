@@ -34,8 +34,8 @@ module Mailarchiva
       search_result_size_response.body[:get_search_result_size_response][:return].to_i
     end
 
-    def get_message(message)
-      blob_response = soap_client.call(:get_blob, message: { 'blobID' =>{ 'blobID' => message.blob_id, 'volumeID' => message.volume_id } })
+    def get_message(blob_id, volume_id)
+      blob_response = soap_client.call(:get_blob, message: { 'blobID' =>{ 'blobID' => blob_id, 'volumeID' => volume_id } })
       encoded_message = blob_response.body[:get_blob_response][:return][:blob]
       decoded_message = Base64.decode64(encoded_message)
       Mail.new(decoded_message)
