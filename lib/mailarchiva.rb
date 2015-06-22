@@ -23,7 +23,7 @@ module Mailarchiva
     # sent_after "2015-06-20T14:57:27" | Time object
     # max_results 1000
     def search_by_subject(subject, params={})
-      params.reverse_merge!({query: "subject:#{subject}"})
+      params.reverse_merge!({query: "subject:\"#{subject}\""})
       @client.search(params)
     end
 
