@@ -27,6 +27,10 @@ module Mailarchiva
       @client.search(params)
     end
 
+    def get_message(blob_id, volume_id)
+      @client.get_message(blob_id, volume_id)
+    end
+
   end
 
 end
