@@ -19,8 +19,8 @@ module Mailarchiva
     # sort_field 'sentdate' | 'archivedate' | 'receiveddate'
     # sort_order 'sentdate' | 'archivedate' | 'receiveddate'
     # date_type 'sentdate' | 'archivedate' | 'receiveddate'
-    # sent_before "2015-06-20T14:57:27"
-    # sent_after "2015-06-19T08:57:27"
+    # sent_before "2015-06-20T14:57:27" | Time object
+    # sent_after "2015-06-20T14:57:27" | Time object
     # max_results 1000
     def search_by_subject(subject, params={})
       params.reverse_merge!({query: "subject:#{subject}"})

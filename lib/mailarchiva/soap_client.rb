@@ -16,6 +16,8 @@ module Mailarchiva
 
     def search(params={})
       params.reverse_merge!({blob_category: 'email', max_results: 1000})
+      params[:sent_before] = params[:sent_before].strftime("%Y-%m-%dT%T") if params.has_key?(:sent_before) && params[:sent_before].is_a?(Time)
+      params[:sent_after] = params[:sent_after].strftime("%Y-%m-%dT%T") if params.has_key?(:sent_after) && params[:sent_after].is_a?(Time)
       search_response = soap_client.call(:search, message: params)
       search_results = search_results_from_response(search_response)
       logout
