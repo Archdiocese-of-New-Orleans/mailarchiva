@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["David John"]
-  s.date = "2015-06-20"
+  s.date = "2015-06-22"
   s.description = "A gem to access the Mailarchiva API"
   s.email = "dj@dbjohn.com"
   s.extra_rdoc_files = [
@@ -30,12 +30,13 @@ Gem::Specification.new do |s|
     "lib/mailarchiva/rest_client.rb",
     "lib/mailarchiva/soap_client.rb",
     "lib/mailarchiva/version.rb",
+    "mailarchiva.gemspec",
     "test/helper.rb",
     "test/test_mailarchiva.rb"
   ]
   s.homepage = "http://github.com/billguy/mailarchiva"
   s.licenses = ["MIT"]
-  s.rubygems_version = "2.2.2"
+  s.rubygems_version = "2.4.2"
   s.summary = "A gem to access the Mailarchiva API"
 
   if s.respond_to? :specification_version then
