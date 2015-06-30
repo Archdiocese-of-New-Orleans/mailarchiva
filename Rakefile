@@ -15,7 +15,7 @@ require 'jeweler'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://guides.rubygems.org/specification-reference/ for more options
   gem.name = "mailarchiva"
-  gem.homepage = "http://github.com/billguy/mailarchiva"
+  gem.homepage = "http://github.com/Archdiocese-of-New-Orleans/mailarchiva"
   gem.license = "MIT"
   gem.summary = %Q{Access the Mailarchiva API}
   gem.description = %Q{A gem to access the Mailarchiva API}
