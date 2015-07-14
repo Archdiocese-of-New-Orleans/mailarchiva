@@ -1,5 +1,5 @@
 require 'mailarchiva/base'
-require 'mailarchiva/message'
+require 'message'
 require 'savon'
 
 module Mailarchiva
@@ -14,8 +14,8 @@ module Mailarchiva
       super(args)
     end
 
-    def search(params={})
-      params.reverse_merge!({blob_category: 'email', max_results: 1000})
+    def search(params)
+      params = {blob_category: 'email', max_results: 1000}.merge(params)
       params[:sent_before] = params[:sent_before].strftime("%Y-%m-%dT%T") if params.has_key?(:sent_before) && params[:sent_before].is_a?(Time)
       params[:sent_after] = params[:sent_after].strftime("%Y-%m-%dT%T") if params.has_key?(:sent_after) && params[:sent_after].is_a?(Time)
       search_response = soap_client.call(:search, message: params)
@@ -44,7 +44,7 @@ module Mailarchiva
     end
 
     def wsdl
-      "%s://%s:%s/services/search?wsdl" % [ssl ? 'https' : 'http', host, port]
+      "%s://%s:%s/services/search?wsdl" % [@ssl ? 'https' : 'http', @host, @port]
     end
 
     def soap_client

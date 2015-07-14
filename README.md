@@ -8,6 +8,11 @@ mailarchiva = Mailarchiva::Client.new(host: '192.168.1.1', user: 'user', pass: '
 results = mailarchiva.search_by_subject('test') # An array of Mailarchiva::Message
 
 mailarchiva.get_message(results.first) # A Mail message
+
+sent_before = Time.now.strftime("%Y/%m/%d %I:%M%p")
+sent_after = (Time.now - 86400).strftime("%Y/%m/%d %I:%M%p")
+params = {sent_after: sent_after, sent_before: sent_before, query: "allsenders=\"e09des0237t@sepdf.gob.mx\""}
+mailarchiva_messages = mailarchiva.search(params)
 ```
 
 [Mailarchiva]:https://www.mailarchiva.com/
