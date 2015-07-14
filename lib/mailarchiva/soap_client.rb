@@ -1,5 +1,5 @@
 require 'mailarchiva/base'
-require 'message'
+require 'mailarchiva/message'
 require 'savon'
 
 module Mailarchiva
