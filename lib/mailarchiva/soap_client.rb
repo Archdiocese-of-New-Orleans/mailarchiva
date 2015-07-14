@@ -28,7 +28,7 @@ module Mailarchiva
       return [] if search_result_size == 0
       search_results_response = soap_client.call(:get_search_results, message: { blob_category: 'email', start: 0, end: search_result_size })
       search_results = [ search_results_response.body[:get_search_results_response][:return] ].flatten.compact
-      search_results.map{|field_values| Message.new(field_values)}
+      search_results.map{|field_values| Message.new(self, field_values)}
     end
 
     def search_result_size

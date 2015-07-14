@@ -5,9 +5,9 @@ A ruby gem to access the [Mailarchiva] API.  Refer to the [Mailarchiva API] for 
 ```ruby
 require 'mailarchiva'
 mailarchiva = Mailarchiva::Client.new(host: '192.168.1.1', user: 'user', pass: 'pass')
-results = mailarchiva.search_by_subject('test') # An array of Mailarchiva::Message
-
-mailarchiva.get_message(results.first) # A Mail message
+mailarchiva_messages = mailarchiva.search_by_subject('test') # An array of Mailarchiva::Message
+mailarchiva_message = results.first # A Mailarchiva::Message
+mailarchiva_message.mail_message # A Mail::Message
 
 sent_before = Time.now.strftime("%Y/%m/%d %I:%M%p")
 sent_after = (Time.now - 86400).strftime("%Y/%m/%d %I:%M%p")

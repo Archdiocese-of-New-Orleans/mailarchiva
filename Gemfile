@@ -12,3 +12,5 @@ group :development do
   gem "jeweler", "~> 2.0"
   gem "simplecov", ">= 0"
 end
+
+gem 'mail'
