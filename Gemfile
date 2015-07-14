@@ -13,4 +13,4 @@ group :development do
   gem "simplecov", ">= 0"
 end
 
-gem 'mail'
+gem 'mail', '~> 2.6'
