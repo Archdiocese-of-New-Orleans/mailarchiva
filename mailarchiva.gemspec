@@ -45,32 +45,20 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<mail>, ["~> 2.6"])
-      s.add_development_dependency(%q<shoulda>, [">= 0"])
-      s.add_development_dependency(%q<rdoc>, ["~> 3.12"])
+      s.add_runtime_dependency(%q<savon>, ["~> 2.10"])
       s.add_development_dependency(%q<bundler>, ["~> 1.0"])
       s.add_development_dependency(%q<jeweler>, ["~> 2.0"])
-      s.add_development_dependency(%q<simplecov>, [">= 0"])
-      s.add_runtime_dependency(%q<savon>, ["~> 2.10"])
-      s.add_runtime_dependency(%q<mail>, ["~> 2.6"])
     else
       s.add_dependency(%q<mail>, ["~> 2.6"])
-      s.add_dependency(%q<shoulda>, [">= 0"])
-      s.add_dependency(%q<rdoc>, ["~> 3.12"])
+      s.add_dependency(%q<savon>, ["~> 2.10"])
       s.add_dependency(%q<bundler>, ["~> 1.0"])
       s.add_dependency(%q<jeweler>, ["~> 2.0"])
-      s.add_dependency(%q<simplecov>, [">= 0"])
-      s.add_dependency(%q<savon>, ["~> 2.10"])
-      s.add_dependency(%q<mail>, ["~> 2.6"])
     end
   else
     s.add_dependency(%q<mail>, ["~> 2.6"])
-    s.add_dependency(%q<shoulda>, [">= 0"])
-    s.add_dependency(%q<rdoc>, ["~> 3.12"])
+    s.add_dependency(%q<savon>, ["~> 2.10"])
     s.add_dependency(%q<bundler>, ["~> 1.0"])
     s.add_dependency(%q<jeweler>, ["~> 2.0"])
-    s.add_dependency(%q<simplecov>, [">= 0"])
-    s.add_dependency(%q<savon>, ["~> 2.10"])
-    s.add_dependency(%q<mail>, ["~> 2.6"])
   end
 end
 
