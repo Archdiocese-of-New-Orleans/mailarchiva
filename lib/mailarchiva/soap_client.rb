@@ -40,7 +40,6 @@ module Mailarchiva
       blob_response = soap_client.call(:get_blob, message: { 'blobID' =>{ 'blobID' => blob_id, 'volumeID' => volume_id } })
       encoded_message = blob_response.body[:get_blob_response][:return][:blob]
       decoded_message = Base64.decode64(encoded_message)
-      Mail.new(decoded_message)
     end
 
     def wsdl

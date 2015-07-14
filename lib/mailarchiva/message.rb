@@ -41,10 +41,12 @@ module Mailarchiva
       undisclosed_recipients? ? mail_message.header.fields.select{|field| field.name =~ /received/i && field.value =~ /\sfor\s<(.*)>/i }.collect{|field| field.value.match(/\sfor\s<(.*)>/).captures.first}.uniq.join : @to.match(/<(.*)>/).captures.first
     end
 
+    def raw_message
+      @raw_message ||= @client.get_message(@blob_id, @volume_id)
+    end
+
     def mail_message
-      @mail_message = begin
-        @client.get_message(@blob_id, @volume_id)
-      end
+      @mail_message ||= Mail.new(raw_message)
     end
 
     def undisclosed_recipients?
