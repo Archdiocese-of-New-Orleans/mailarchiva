@@ -42,6 +42,11 @@ module Mailarchiva
       decoded_message = Base64.decode64(encoded_message)
     end
 
+    def get_mail_message(blob_id, volume_id)
+      message = get_message(blob_id, volume_id)
+      Mail.new(message)
+    end
+
     def wsdl
       "%s://%s:%s/services/search?wsdl" % [@ssl ? 'https' : 'http', @host, @port]
     end

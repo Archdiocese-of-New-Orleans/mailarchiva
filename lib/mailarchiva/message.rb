@@ -30,7 +30,7 @@ module Mailarchiva
     end
 
     def from
-      @from.match(/<(.*)>/).captures.first
+      raw_from && raw_from.match(/<(.*)>/).captures.first
     end
 
     def raw_to
@@ -38,7 +38,11 @@ module Mailarchiva
     end
 
     def to
-      undisclosed_recipients? ? mail_message.header.fields.select{|field| field.name =~ /received/i && field.value =~ /\sfor\s<(.*)>/i }.collect{|field| field.value.match(/\sfor\s<(.*)>/).captures.first}.uniq.join : @to.match(/<(.*)>/).captures.first
+      if undisclosed_recipients?
+        mail_message.header.fields.select{|field| field.name =~ /received/i && field.value =~ /\sfor\s<(.*)>/i }.collect{|field| field.value.match(/\sfor\s<(.*)>/).captures.first}.uniq.join
+      elsif raw_to
+       raw_to.match(/<(.*)>/).captures.first
+      end
     end
 
     def raw_message
@@ -46,11 +50,11 @@ module Mailarchiva
     end
 
     def mail_message
-      @mail_message ||= Mail.new(raw_message)
+      @mail_message ||= @client.get_mail_message(@blob_id, @volume_id)
     end
 
     def undisclosed_recipients?
-      (@to =~ /undisclosed-recipients/i) == 1
+      (raw_to =~ /undisclosed-recipients/i) == 1
     end
 
   end
