@@ -39,7 +39,7 @@ module Mailarchiva
 
     def to
       if undisclosed_recipients?
-        mail_message.header.fields.select{|field| field.name =~ /received/i && field.value =~ /\sfor\s<(.*)>/i }.collect{|field| field.value.match(/\sfor\s<(.*)>/).captures.first}.uniq.join
+        mail_message.header.fields.select{|field| field.name =~ /received/i && field.value =~ /\sfor\s\W?([\w\._\-]+@[\w\._\-]+)\W/i }.collect{|field| field.value.match( /\sfor\s\W?([\w\._\-]+@[\w\._\-]+)\W/).captures.first}.uniq.join
       elsif raw_to
        raw_to.match(/<(.*)>/).captures.first
       end
@@ -54,7 +54,7 @@ module Mailarchiva
     end
 
     def undisclosed_recipients?
-      (raw_to =~ /undisclosed-recipients/i) == 1
+      raw_to.nil? || (raw_to =~ /undisclosed-recipients/i) == 1
     end
 
   end
