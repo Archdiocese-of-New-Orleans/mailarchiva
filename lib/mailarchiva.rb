@@ -33,6 +33,10 @@ module Mailarchiva
       @client.get_message(blob_id, volume_id)
     end
 
+    def get_mail_message(blob_id, volume_id)
+      @client.get_mail_message(blob_id, volume_id)
+    end
+
   end
 
 end
