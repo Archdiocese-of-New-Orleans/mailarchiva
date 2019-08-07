@@ -1,4 +1,7 @@
-require 'mailarchiva/base'
+require 'faraday'
+require 'json'
+require_relative 'base'
+require_relative 'message'
 
 module Mailarchiva
 
@@ -6,23 +9,31 @@ module Mailarchiva
 
     def initialize(args)
       super(args)
-      raise "RestClient is not supported yet b/c it does not work on Mailarchiva as of 4.5.8"
     end
 
     def search(params={})
-      response = @client.get api, params
+      response = rest_client.get self.class.endpoint_url, params
       parsed_response = JSON.parse(response.body, symbolize_names: true)
-      parsed_response[:results]
-      parsed_response.map{|field_values| Message.new(field_values)}
+      parsed_response[:searchResults].map{|field_values| Message.new(self, field_values)}
     end
 
-    def api
-      "/archiva3/api/blob"
+    def get_message(volume_id, blob_id)
+      blob_url = self.class.blob_url(volume_id, blob_id)
+      client = rest_client({ 'Accept' => 'application/octet-stream' })
+      client.get(blob_url).body
     end
 
-    def self.client(host, user, pass, ssl, port, app_name)
-      connection = Faraday.new(url: url(ssl, host, port))
-      connection.headers = {'Authorization' => basic_auth(app_name, user, pass), 'Accept' => 'application/json'}
+    def self.endpoint_url
+      "/api/v1/blobs"
+    end
+
+    def self.blob_url(volume_id, blob_id)
+      "#{endpoint_url}/#{volume_id}/#{blob_id}"
+    end
+
+    def rest_client(headers = { 'Accept' => 'application/json' })
+      connection = Faraday.new(url: self.class.url(ssl, host, port))
+      connection.headers = headers.merge({'Authorization' => self.class.basic_auth(app_name, user, pass)})
       connection
     end
 

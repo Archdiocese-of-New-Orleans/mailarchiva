@@ -1,5 +1,4 @@
-require 'mailarchiva/rest_client'
-require 'mailarchiva/soap_client'
+require_relative 'mailarchiva/rest_client'
 
 module Mailarchiva
 
@@ -8,8 +7,8 @@ module Mailarchiva
     attr_accessor :client
 
     def initialize(args)
-      args = {client: :soap, ssl: false, port: 8090, app_name: 'ROOT'}.merge(args)
-      @client = args[:client] == :rest ? RestClient.new(args) : SoapClient.new(args)
+      args = { ssl: false, port: 8090, app_name: 'ROOT'}.merge(args)
+      @client = RestClient.new(args)
     end
 
     # blob_category 'email'
@@ -29,12 +28,8 @@ module Mailarchiva
       @client.search(params)
     end
 
-    def get_message(blob_id, volume_id)
-      @client.get_message(blob_id, volume_id)
-    end
-
-    def get_mail_message(blob_id, volume_id)
-      @client.get_mail_message(blob_id, volume_id)
+    def get_message(volume_id, blob_id)
+      @client.get_message(volume_id, blob_id)
     end
 
   end

@@ -5,7 +5,7 @@ module Mailarchiva
 
   class Base
 
-    attr_accessor :host, :user, :pass, :ssl, :port, :app_name, :client
+    attr_accessor :host, :user, :pass, :ssl, :port, :app_name
 
     def initialize(args)
       args.each do |k,v|

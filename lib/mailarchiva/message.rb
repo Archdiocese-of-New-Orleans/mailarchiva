@@ -8,8 +8,8 @@ module Mailarchiva
 
     def initialize(client, field_values)
       @client = client
-      field_values[:field_values].each do |field|
-        key = field[:field]
+      field_values[:fieldValues].each do |field|
+        key = field[:field].gsub(/(.)([A-Z])/,'\1_\2').downcase # Convert camelCase to snake_case
         value = field[:value]
         case key
           when /date/
@@ -21,8 +21,8 @@ module Mailarchiva
         end
         instance_variable_set("@#{key}", value) if respond_to?(key.to_sym)
       end
-      @blob_id = field_values[:id][:blob_id]
-      @volume_id = field_values[:id][:volume_id]
+      @blob_id = field_values[:blobId][:uniqueId]
+      @volume_id = field_values[:blobId][:volumeId]
     end
 
     def raw_from
@@ -46,11 +46,7 @@ module Mailarchiva
     end
 
     def raw_message
-      @raw_message ||= @client.get_message(@blob_id, @volume_id)
-    end
-
-    def mail_message
-      @mail_message ||= @client.get_mail_message(@blob_id, @volume_id)
+      @client.get_message(@volume_id, @blob_id)
     end
 
     def undisclosed_recipients?
