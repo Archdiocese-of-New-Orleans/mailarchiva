@@ -37,6 +37,10 @@ module Mailarchiva
       @to
     end
 
+    def mail_message
+      Mail.new raw_message
+    end
+
     def to
       if undisclosed_recipients?
         mail_message.header.fields.select{|field| field.name =~ /received/i && field.value =~ /\sfor\s\W?([\w\._\-]+@[\w\._\-]+)\W/i }.collect{|field| field.value.match( /\sfor\s\W?([\w\._\-]+@[\w\._\-]+)\W/).captures.first}.uniq.compact
