@@ -53,6 +53,11 @@ module Mailarchiva
       @client.get_message(@volume_id, @blob_id)
     end
 
+    # BCC workaround
+    def message_for
+      mail_message.header.select{ |field| field.name.downcase == 'received' && field.info =~ /\sfor\s.+@.+/  }.collect{ |field| field.info.match(/for\s<?(.+@.+);?>?/).captures }.flatten.compact.uniq.map{|email_address| email_address.gsub(/[<;>]/, '') }
+    end
+
     def undisclosed_recipients?
       raw_to.nil? || (raw_to =~ /undisclosed-recipients/i) == 1
     end
