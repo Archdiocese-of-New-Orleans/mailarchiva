@@ -56,6 +56,8 @@ module Mailarchiva
     # BCC workaround
     def message_for
       mail_message.header.select{ |field| field.name.downcase == 'received' && field.info =~ /\sfor\s.+@.+/  }.collect{ |field| field.info.match(/for\s<?(.+@.+);?>?/).captures }.flatten.compact.uniq.map{|email_address| email_address.gsub(/[<;>]/, '') }
+    rescue NoMethodError
+      []
     end
 
     def undisclosed_recipients?
