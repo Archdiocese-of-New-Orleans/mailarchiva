@@ -24,7 +24,7 @@ module Mailarchiva
     end
 
     def self.endpoint_url
-      "/api/v1/blobs"
+      "/api/v2/blobs"
     end
 
     def self.blob_url(volume_id, blob_id)
@@ -33,12 +33,12 @@ module Mailarchiva
 
     def rest_client(headers = { 'Accept' => 'application/json' })
       connection = Faraday.new(url: self.class.url(ssl, host, port), ssl: ssl)
-      connection.headers = headers.merge({'Authorization' => self.class.basic_auth(app_name, user, pass)})
+      connection.headers = headers.merge({'Authorization' => self.class.basic_auth(app_name, key)})
       connection
     end
 
-    def self.basic_auth(app_name, user, pass)
-      Base64.strict_encode64("#{app_name}:#{user}:#{pass}")
+    def self.basic_auth(app_name, key)
+      Base64.strict_encode64("#{app_name}:#{key}")
     end
 
     def self.url(ssl, host, port)
