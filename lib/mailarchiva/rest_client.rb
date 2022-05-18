@@ -32,7 +32,7 @@ module Mailarchiva
     end
 
     def rest_client(headers = { 'Accept' => 'application/json' })
-      connection = Faraday.new(url: self.class.url(ssl, host, port), ssl: ssl)
+      connection = Faraday.new(url: self.class.url(ssl, host, port), ssl: ssl, proxy: proxy_url)
       connection.headers = headers.merge({'Authorization' => self.class.basic_auth(app_name, key)})
       connection
     end
