@@ -14,7 +14,7 @@ module Mailarchiva
     def search(params={})
       response = rest_client.get self.class.endpoint_url, params
       parsed_response = JSON.parse(response.body, symbolize_names: true)
-      parsed_response[:searchResults].map{|field_values| Message.new(self, field_values)}
+      parsed_response[:results].map{|field_values| Message.new(self, field_values)}
     end
 
     def get_message(volume_id, blob_id)
