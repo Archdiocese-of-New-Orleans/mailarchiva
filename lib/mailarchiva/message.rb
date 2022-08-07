@@ -8,8 +8,8 @@ module Mailarchiva
 
     def initialize(client, field_values)
       @client = client
-      field_values[:fieldValues].each do |field|
-        key = field[:field].gsub(/(.)([A-Z])/,'\1_\2').downcase # Convert camelCase to snake_case
+      field_values[:list].each do |field|
+        key = field[:field]#.gsub(/(.)([A-Z])/,'\1_\2').downcase # Convert camelCase to snake_case
         value = field[:value]
         case key
           when /date/
@@ -21,8 +21,8 @@ module Mailarchiva
         end
         instance_variable_set("@#{key}", value) if respond_to?(key.to_sym)
       end
-      @blob_id = field_values[:blobId][:uniqueId]
-      @volume_id = field_values[:blobId][:volumeId]
+      @blob_id = field_values[:blobid][:uniqueid]
+      @volume_id = field_values[:blobid][:volumeid]
     end
 
     def raw_from
